@@ -13,8 +13,8 @@ public class VehiculoCarga extends Vehiculo implements CalculoBoleta{
         return capacidadCarga;
     }
 
-    public void setCapacidadCarga(int capacidadCarga) {
-        this.capacidadCarga = capacidadCarga;
+    public void setCapacidad(int capacidad) {
+        this.capacidadCarga = capacidad;
     }
 
     @Override

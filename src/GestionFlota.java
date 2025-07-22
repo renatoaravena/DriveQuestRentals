@@ -1,11 +1,11 @@
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class GestionFlota {
 
-    private HashMap<String, Vehiculo> flotaVehiculos = new HashMap<>();
+    private final ConcurrentHashMap<String, Vehiculo> flotaVehiculos = new ConcurrentHashMap<>();
 
     //Metodo para agregar vehiculos que valide la no duplicidad de patentes al querer agregar un vehiculo, utilizar hashmap
-    public void agregarVehiculo(Vehiculo vehiculo) {
+    public synchronized void agregarVehiculo(Vehiculo vehiculo) {
         String patente = vehiculo.getPatente();
 
         if (flotaVehiculos.containsKey(patente)) {
@@ -13,6 +13,9 @@ public class GestionFlota {
 
         }else{
             flotaVehiculos.put(patente, vehiculo);
+            //Llamamos al metodo para agregar el vehiculo al archivo CSV
+            FileHandler.agregarVehiculosCSV(vehiculo, "vehiculos.csv");
+
             System.out.println("Vehículo agregado exitosamente: " + patente + "\n");
         }
 
@@ -53,7 +56,7 @@ public class GestionFlota {
         }
     }
 
-    public HashMap<String, Vehiculo> getFlotaVehiculos() {
+    public ConcurrentHashMap<String, Vehiculo> getFlotaVehiculos() {
         return flotaVehiculos;
     }
 }

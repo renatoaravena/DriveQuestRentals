@@ -8,6 +8,10 @@ public class Main {
     public static void main(String[] args) {
 
         GestionFlota flota = new GestionFlota();
+
+        // Carga inicial en segundo plano
+        FileHandler.cargarVehiculosCSV(flota, "vehiculos.csv");
+
         Scanner scanner = new Scanner(System.in);
 
         int opcion = -1;
@@ -35,13 +39,13 @@ public class Main {
                         int tipoVehiculo = scanner.nextInt();
                         scanner.nextLine(); // Limpiar el buffer
                         System.out.println("Ingrese patente: ");
-                        String patente = scanner.nextLine();
+                        String patente = scanner.nextLine().toUpperCase();
                         System.out.println("Ingrese marca: ");
-                        String marca = scanner.nextLine();
+                        String marca = scanner.nextLine().toUpperCase();
                         System.out.println("Ingrese modelo: ");
-                        String modelo = scanner.nextLine();
+                        String modelo = scanner.nextLine().toUpperCase();
                         System.out.println("Ingrese año: ");
-                        String anio = scanner.nextLine();
+                        String anio = scanner.nextLine().toUpperCase();
                         System.out.println("Ingrese precio de arriendo: ");
                         int precioArriendo = scanner.nextInt();
                         System.out.println("Ingrese días de arriendo: ");
@@ -92,6 +96,8 @@ public class Main {
 
 
         }while (opcion != 0);
+
+        FileHandler.shutdown();
 
     }
 }
